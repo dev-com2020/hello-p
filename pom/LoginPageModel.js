@@ -18,8 +18,14 @@ module.exports = class LoginPageModel {
     }
 
     async login(user,password){
-        await this.page.type('#email',user);
-        await this.page.type('#password', password);
-        await this.page.click('#login-form .btn-success');
+        const emailInput = await this.page.$('#email');
+        await emailInput.type(user, {delay: 100});
+        const passwordInput = await this.page.$('#password');
+        await passwordInput.type(password, {delay: 100});
+        const loginBtn = await this.page.$('#login-form [type=submit]');
+        await loginBtn.click();
+        // await this.page.type('#email',user);
+        // await this.page.type('#password', password);
+        // await this.page.click('#login-form .btn-success');
     }
 }

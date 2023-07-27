@@ -33,6 +33,10 @@ after(async () => {
 });
 
 it('Should have the right title', async () => {
+    (await pageModel.title()).should.equal('Login');
+});
+
+it('It should persist the user', async () => {
     const userDataDir = fs.mkdtempSync('profile');
     const options = config.launchOptions;
     options.userDataDir = userDataDir;
@@ -47,6 +51,12 @@ it('Should have the right title', async () => {
 
     await persistentBrowser.close();
     deleteFolderRecursive(userDataDir);
+});
+
+it('Should load image after login', async() => {
+    const promise = page.waitForResponse(config.productImage);
+    await pageModel.login(config.username, config.password);
+    await promise;
 });
 
 const deleteFolderRecursive = function(path) {
