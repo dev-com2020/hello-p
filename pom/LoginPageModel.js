@@ -13,8 +13,8 @@ module.exports = class LoginPageModel {
     }
 
     async logState(){
-        await this.page.waitForSelector('#login-form')
-        return await this.page.evaluate(() => document.querySelector('#login-form').innerText);
+        await this.page.waitForSelector('#navbarTop .nav-link')
+        return await this.page.evaluate(() => document.querySelector('#navbarTop .nav-link').innerText);
     }
 
     async login(user,password){
