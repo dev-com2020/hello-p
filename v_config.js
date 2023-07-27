@@ -5,6 +5,8 @@ module.exports = ({
         timeout: 50000,
         username: 'admin@gmail.com',
         password: 'admin',
+        productToTestName: 'Macbook Pro 13.3\' Retina MF841LL/A',
+        productToTestId: 1,
         launchOptions: {headless: false}
     },
     CI: {
