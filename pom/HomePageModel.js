@@ -12,12 +12,12 @@ module.exports = class HomePageModel {
     }
 
     async getPrice(productName){
-        const productDiv = (await this.page.$x(`//a[text()="${productName}"]../../`))[0];
-        const priceElement = (await productDiv.$x('./div[@class="row"]/p[0]'))[0];
+        const productDiv = (await this.page.$x(`//a[text()="${productName}"]/../..`))[0];
+        const priceElement = (await productDiv.$x('./div[@class="row"]/p[1]'))[0];
         return await priceElement.evaluate(e => e.innerText);
     }
     async getStock(productName){
-        const productDiv = (await this.page.$x(`//a[text()="${productName}"]../../`))[0];
+        const productDiv = (await this.page.$x(`//a[text()="${productName}"]/../..`))[0];
         const stockElement = (await productDiv.$x('./h6'))[0];
         return await this.getInnerText(stockElement);
     }
