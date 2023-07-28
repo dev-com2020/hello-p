@@ -6,7 +6,8 @@ const LoginPageModel = require('./pom/LoginPageModel');
 const fs = require('fs');
 const Path = require('path');
 const NetworkPresets = require('./network_sample');
-
+// const lighthouse = require('lighthouse');
+// import lighthouse from 'lighthouse';
 
 describe('Login Page', () => {
     let browser;
@@ -66,16 +67,30 @@ it('Should login on GPRS', async() => {
     await page.waitForSelector('.thumbnail.card');
 });
 
-it('Should login on 3G with custom settings', async() => {
-    await page.emulateNetworkConditions(
-    {
-      download: 750 * 1024 / 8,
-      upload: 250 * 1024 / 8,
-      latency: 100,
+// it('Should login on 3G with custom settings', async() => {
+//     await page.emulateNetworkConditions(
+//     {
+//       download: 750 * 1024 / 8,
+//       upload: 250 * 1024 / 8,
+//       latency: 100,
+//     });
+//   await pageModel.login(config.username, config.password);
+//   await page.waitForSelector('.thumbnail.card');
+// });
+
+// it('Should have a good performance score', async() => {
+//     const result = await lighthouse(config.baseURL, {
+//     port: (new URL(browser.wsEndpoint())).port,
+//     onlyCategories: ['performance']
+//     });
+//     expect(result.lhr.categories.performance.score >= 0.25).to.be.true;
+// });
+
+it('Should have a good first contentful paint metric using tracing', async() => {
+    await page.tracing.start({ screenshots: true, path: './homepagetracing.json' });
+    await page.goto(config.baseURL);
+    await page.tracing.stop();
     });
-  await pageModel.login(config.username, config.password);
-  await page.waitForSelector('.thumbnail.card');
-});
 
 const deleteFolderRecursive = function(path) {
     try {

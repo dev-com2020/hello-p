@@ -6,7 +6,7 @@ puppeteer.use(
   RecaptchaPlugin({
     provider: {
       id: '2captcha',
-      token: 'XXXXXXX' 
+      token: '716b01a766db2b555ab2149acafb4035' 
     },
     visualFeedback: true // Enable visual feedback (colorize reCAPTCHAs)
   })
