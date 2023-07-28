@@ -1,35 +1,75 @@
-const puppeteer = require('puppeteer');
-
-(async () => {
-    const browser = await puppeteer.launch({
-        headless: true,
-        defaultViewport: null
-    });
-const page = await browser.newPage();
+const { chromium } = require('playwright');
+const browser = await chromium.launch()
+const page = await browser.newPage()
 const navigationPromise = page.waitForNavigation()
 
-await page.goto('https://www.onet.pl/');
+await page.goto('https://www.meestpost.com/pl/')
 
-await page.setViewport({ width: 1200, height: 874 });
+await page.setViewportSize({ width: 1522, height: 874 })
+
+await page.waitForSelector('#vs1__combobox')
+await page.click('#vs1__combobox')
+
+await page.waitForSelector('.select > .v-select > #vs1__listbox > #vs1__option-16 > .countries-option-wr')
+await page.click('.select > .v-select > #vs1__listbox > #vs1__option-16 > .countries-option-wr')
+
+await page.waitForSelector('.select > .v-select > #vs2__combobox > .vs__selected-options > .vs__search')
+await page.click('.select > .v-select > #vs2__combobox > .vs__selected-options > .vs__search')
+
+await page.waitForSelector('.select > .v-select > #vs2__listbox > #vs2__option-0 > .countries-option-wr')
+await page.click('.select > .v-select > #vs2__listbox > #vs2__option-0 > .countries-option-wr')
+
+await page.waitForSelector('#calculator-index-page > .form > .form-row > .form-col > .btn')
+await page.click('#calculator-index-page > .form > .form-row > .form-col > .btn')
 
 await navigationPromise
 
-await page.waitForSelector('.Menu_navWrapper__lQTfH > .Menu_navMenuListItem__IRxhU:nth-child(5) > .CollapsedItems_collapsedMenu__l_XFH > .CollapsedItems_column__EyeRi:nth-child(3) > .CollapsedItem_itemLinkSimple__i5zoz:nth-child(1)')
-await page.click('.Menu_navWrapper__lQTfH > .Menu_navMenuListItem__IRxhU:nth-child(5) > .CollapsedItems_collapsedMenu__l_XFH > .CollapsedItems_column__EyeRi:nth-child(3) > .CollapsedItem_itemLinkSimple__i5zoz:nth-child(1)')
+await page.waitForSelector('#form-second-step > .sending-methods > div > #carrier-box-107 > .checkbox')
+await page.click('#form-second-step > .sending-methods > div > #carrier-box-107 > .checkbox')
 
-await navigationPromise
+await page.waitForSelector('#form-second-step > .delivery-methods > div > #carrier-box-39 > .checkbox')
+await page.click('#form-second-step > .delivery-methods > div > #carrier-box-39 > .checkbox')
 
-await page.waitForSelector('.glide__slides > .glide__slide--active > .driverItemContent > .driverItemLeadTitleWrapper > .driverItemTitle')
-await page.click('.glide__slides > .glide__slide--active > .driverItemContent > .driverItemLeadTitleWrapper > .driverItemTitle')
+await page.waitForSelector('#form-second-step-submit-btn')
+await page.click('#form-second-step-submit-btn')
 
-await page.waitForSelector('.ucs-infoskin > #adtpl--cbreak > .adtpl__cbreak__header > .adtpl__cbreak__button > span')
-await page.click('.ucs-infoskin > #adtpl--cbreak > .adtpl__cbreak__header > .adtpl__cbreak__button > span')
+await page.waitForSelector('#send-parcel-sender-first-name')
+await page.click('#send-parcel-sender-first-name')
 
-await page.waitForSelector('.glide__slides > .glide__slide:nth-child(2) > .driverItemContent > .driverItemLeadTitleWrapper > .driverItemTitle')
-await page.click('.glide__slides > .glide__slide:nth-child(2) > .driverItemContent > .driverItemLeadTitleWrapper > .driverItemTitle')
+await page.type('#send-parcel-sender-first-name', 'Tomek')
 
-await navigationPromise
+await page.type('#send-parcel-sender-last-name', 'Kaniecki')
 
-await browser.close();
+await page.type('#send-parcel-sender-company-name', '')
 
-})();
+await page.waitForSelector('#send-parcel-sender-last-name')
+await page.click('#send-parcel-sender-last-name')
+
+await page.waitForSelector('#sender-notes-for-courier')
+await page.click('#sender-notes-for-courier')
+
+await page.waitForSelector('#send-parcel-sender-zip-code')
+await page.click('#send-parcel-sender-zip-code')
+
+await page.type('#send-parcel-sender-zip-code', '26212')
+
+await page.waitForSelector('#send-parcel-sender-city')
+await page.click('#send-parcel-sender-city')
+
+await page.waitForSelector('#send-parcel-sender-street')
+await page.click('#send-parcel-sender-street')
+
+await page.type('#send-parcel-sender-street', 'Romiiiii')
+
+await page.type('#send-parcel-sender-house-number', '4')
+
+await page.type('#send-parcel-sender-apartment', '44')
+
+await page.type('#send-parcel-sender-phone', '(+49)5432-321124')
+
+await page.type('#send-parcel-sender-email', '')
+
+await page.waitForSelector('#send-parcel-sender-email')
+await page.click('#send-parcel-sender-email')
+
+await browser.close()
