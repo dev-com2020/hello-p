@@ -60,13 +60,13 @@ const sleep = (milliseconds) => {
       }
     }
 
-    await page.waitForSelector("li.a-last", { visible: true });
-    const is_disabled = (await page.$("li.a-disabled.a-last")) !== null;
+    await page.waitForSelector(".s-pagination-next", { visible: true });
+    const is_disabled = (await page.$(".s-pagination-next .s-pagination-disabled ")) !== null;
 
     isBtnDisabled = is_disabled;
     if (!is_disabled) {
       await Promise.all([
-        page.click("li.a-last"),
+        page.click(".s-pagination-next"),
         page.waitForNavigation({ waitUntil: "networkidle2" }),
       ]);
     }

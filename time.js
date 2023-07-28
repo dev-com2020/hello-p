@@ -13,14 +13,32 @@ const puppeteer = require('puppeteer');
     // });
     // await page.goto('https://www.google.com/');
     // await browser.close();
-    const browser = await puppeteer.launch();
-    const page = await browser.newPage();
-    await page.goto('https://www.google.pl');
-    await page.emulateMediaFeatures([{ name: 'prefers-color-scheme', value: 'dark' }]);
-    await page.screenshot({ path: 'dark.png' });
-    await page.emulateVisionDeficiency('achromatopsia');
-    await page.screenshot({ path: 'achromatopsia.png' });
-    await page.emulateVisionDeficiency('blurredVision');
-    await page.screenshot({ path: 'blurred-vision.png' });
-    await browser.close();
+    // const browser = await puppeteer.launch();
+    // const page = await browser.newPage();
+    // await page.goto('https://www.google.pl');
+    // await page.emulateMediaFeatures([{ name: 'prefers-color-scheme', value: 'dark' }]);
+    // await page.screenshot({ path: 'dark.png' });
+    // await page.emulateVisionDeficiency('achromatopsia');
+    // await page.screenshot({ path: 'achromatopsia.png' });
+    // await page.emulateVisionDeficiency('blurredVision');
+    // await page.screenshot({ path: 'blurred-vision.png' });
+    // await browser.close();
+
+    // const puppeteer = require('puppeteer');
+    const puppeteer = require('puppeteer-extra');
+    const StealthPlugin = require('puppeteer-extra-plugin-stealth');
+
+    (async function () {
+        puppeteer.use(StealthPlugin());
+        const browser = await puppeteer.launch({headless: 'new'});
+        const page = await browser.newPage();
+        await page.goto('https://arh.antoinevastel.com/bots/areyouheadless');
+        await page.screenshot({ path: './bot.png' });
+        browser.close()
+    })();
+
+
+
+
+
 })();
