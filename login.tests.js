@@ -60,10 +60,21 @@ it('Should load image after login', async() => {
     await promise;
 });
 
-it('Should login on 3G', async() => {
+it('Should login on GPRS', async() => {
     await page.emulateNetworkConditions(NetworkPresets.GPRS);
     await pageModel.login(config.username, config.password);
     await page.waitForSelector('.thumbnail.card');
+});
+
+it('Should login on 3G with custom settings', async() => {
+    await page.emulateNetworkConditions(
+    {
+      download: 750 * 1024 / 8,
+      upload: 250 * 1024 / 8,
+      latency: 100,
+    });
+  await pageModel.login(config.username, config.password);
+  await page.waitForSelector('.thumbnail.card');
 });
 
 const deleteFolderRecursive = function(path) {
@@ -88,14 +99,14 @@ const deleteFolderRecursive = function(path) {
 });
 
 
-var itParam = require('mocha-param');
-// We have used chai as an assertion library but you can use any.
-var expect = require('chai').expect;
+// var itParam = require('mocha-param');
+// // We have used chai as an assertion library but you can use any.
+// var expect = require('chai').expect;
  
-// A Simple sync example taking an array as a parameter.
-// 'value' is each value in the array
-describe("basic mocha test with data", function () {
-    itParam("test value is a number", [1, 2, 3], function (value) {
-        expect(value).to.be.a('number');
-    })
-})
+// // A Simple sync example taking an array as a parameter.
+// // 'value' is each value in the array
+// describe("basic mocha test with data", function () {
+//     itParam("test value is a number", [1, 2, 3], function (value) {
+//         expect(value).to.be.a('number');
+//     })
+// })
